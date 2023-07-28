@@ -1,3 +1,4 @@
+//Api: RapiApi
 const url = 'https://youtube-v31.p.rapidapi.com/search?channelId=UCd8iY-kEHtaB8qt8MH--zGw&part=snippet%2Cid&order=date&maxResults=10';
 
 const contenido = null || document.querySelector('#content');
@@ -18,8 +19,10 @@ async function fetchData (urlApi) {
 (async () => {
     try {
         const videos = await fetchData(url);
+        //map es utilizado para realizar la transformacion del de los elementos utilizando el template que se esta utilizando
         let view = `
         ${videos.items.map(video => `
+        <a href="https://youtube.com/watch?v=${video.id.videoId} "target="_blank">
             <div class="group relative justify-between">
                 <div
                     class="w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
@@ -32,10 +35,10 @@ async function fetchData (urlApi) {
                     </h3>
                 </div>
             </div>
-        `).slice(0,4).join('')}  
+        `).slice(0,8).join('')}  
         `;
         contenido.innerHTML = view; 
     } catch (error) {
-        //console.log(error);
+        console.log(error);
     }
 })();
